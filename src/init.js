@@ -3,6 +3,7 @@ let config = {
     type: Phaser.AUTO,
     width: 640,
     height: 360,
+    parent: 'container',
     scene: {
         preload: preload,
         create: create,
@@ -12,7 +13,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: {
-                y: 500
+                //y : 500
             }
         }
     }
@@ -29,11 +30,14 @@ function preload(){
 // show the images
 function create(){
     this.bird = this.physics.add.image(50, 100, 'bird');
-    this.bird.setCollideWorldBounds(true);
-    this.bird.setBounce(0.35);
+    this.cursor = this.input.keyboard.createCursorKeys();
 }
 
 // update the game
 function update(time, delta){
-
+    if(this.cursor.right.isDown){
+        this.bird.x++;
+    } else if (this.cursor.left.isDown){
+        this.bird.x--;
+    }
 }
